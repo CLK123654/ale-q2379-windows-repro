@@ -1,0 +1,6 @@
+1. 使用psql连接新建数据库，读取tenant.csv、actor_tenant_grant.csv和meter_interval.csv，并在同一事务中创建角色、schema、表结构与基础数据。
+2. 执行ALTER TABLE为core.meter_interval启用并强制RLS，再创建面向查询、新增和更新的策略及开放账期限制。
+3. 执行CREATE FUNCTION和ALTER FUNCTION设置授权函数与日报函数的owner及search_path，并用REVOKE和GRANT收紧执行面。
+4. 为access_scenarios.csv中的actor分别建立psql连接，在事务内执行场景SQL并回滚数据变更，采集行数与SQLSTATE。
+5. 查询pg_policies、pg_class、pg_proc和has_table_privilege，导出策略目录、关系安全状态及对象权限面。
+6. 按租户和UTC日期汇总计量区间，结合访问矩阵生成security_review.json与交接说明。
