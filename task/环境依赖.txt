@@ -1,5 +1,7 @@
-支持Windows11本机运行。主软件为PostgreSQL Client，使用psql17或更高版本连接Windows本机PostgreSQL17服务；RLS、SECURITY DEFINER函数、系统目录与登录连接必须由PostgreSQL实际执行。
+操作系统： Windows11。
 
-辅助工具为Python3.11或更高版本，只用于调用psql和整理CSV、JSON。联网要求是运行期间仅连接本机回环地址，不需要外网。输入是脱敏演练材料，使用前保持只读。PostgreSQL采用PostgreSQL License，不需要额外商业许可。
+主软件为PostgreSQL Client。psql17或更高版本连接Windows本机PostgreSQL17服务，RLS、SECURITY DEFINER函数、系统目录查询和各登录角色连接由数据库实际执行。Python3.11或更高版本用于调用psql并整理CSV、JSON。
 
-建议2核CPU、2GB内存和1GB可写磁盘。执行账号需要创建数据库角色、schema和函数的权限，交付目录需要创建子目录及写入SQL、CSV、JSON和Markdown文件的权限。单次运行超时300秒。主要风险是把current_user当成登录身份、遗漏FORCE RLS、缺少UPDATE WITH CHECK或保留PUBLIC函数执行权限。
+工作范围是本机回环地址上的PostgreSQL业务库。输入是只读的脱敏材料；数据库账号需要创建角色、schema、策略和函数的权限，交付目录用于保存SQL、CSV、JSON和Markdown。多角色连接和策略检查使用CPU，GPU可保持空闲；磁盘需要容纳数据库、事务日志和结果文件。完整执行设置超时，出现角色切换失败或锁等待时关闭连接。
+
+检查安全边界时区分登录身份与current_user，并确认FORCE RLS、UPDATE WITH CHECK和函数执行权限。
